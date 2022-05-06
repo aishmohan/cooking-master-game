@@ -1,18 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class MovePlayer : MonoBehaviour
 {
-
     // Global variables
+    public TextMeshPro vegetableText;   // indicator for food picked up
     public int playerNumber = 1;
     public float speed = 6.0f;
-
- //   private float 
+    public float timeRemaining = 120f;  // total time remaining in game
     
+    private int score = 0;
+    private string foodPicked = "";     // list of food picked up
+    private bool choppingFood = false;  // true if at chopping board; false otherwise
+    private string foodOnPlate = "";    // name of food placed on plate near board
+    private float chopTimeLeft = 5f;    // total amount of time left to finish chopping items
 
-    // Update is called once per frame
+
+    /** Start is called before the first frame update
+     *  Clears text for indicator at start of game
+     */
+    void Start()
+    {
+        vegetableText.text = "";
+    }
+
+    /** Update is called once per frame
+     *  Updates the positions of the players
+     */
     void Update()
     {
         Vector3 pos = transform.position; // get the position of the player
@@ -35,5 +51,16 @@ public class MovePlayer : MonoBehaviour
         }
 
         transform.position = pos;   // update the position of the player
+    }
+
+    /** Detects collisions with other objects
+     */
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        // if player delivers to a customer, add to the player's score
+        if (col.gameObject.tag.Equals("Order"))
+        {
+            ScoreManager.instance.addPoints(playerNumber);
+        }
     }
 }
