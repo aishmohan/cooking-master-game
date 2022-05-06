@@ -6,8 +6,11 @@ public class MovePlayer : MonoBehaviour
 {
 
     // Global variables
-    public float speed = 6.0f;
     public int playerNumber = 1;
+    public float speed = 6.0f;
+
+ //   private float 
+    
 
     // Update is called once per frame
     void Update()

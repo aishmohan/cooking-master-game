@@ -7,7 +7,7 @@ public class OrderTimerScript : MonoBehaviour
 {
     // Global variables
     Image orderTimerBar;
-    public GameObject orderText;
+//  public GameObject orderText;
     public float maxTime = 20f;
     float timeLeft;
 
@@ -15,7 +15,7 @@ public class OrderTimerScript : MonoBehaviour
     void Start()
     {
         orderTimerBar = GetComponent<Image> ();
-        orderText.SetActive(true);
+    //  orderText.SetActive(true);
         timeLeft = maxTime;
     }
 
