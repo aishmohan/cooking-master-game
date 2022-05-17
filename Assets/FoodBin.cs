@@ -23,4 +23,11 @@ public class FoodBin : MonoBehaviour
     {
         
     }
+
+    /** Detects collisions with other objects
+     */
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        
+    }
 }

@@ -52,15 +52,4 @@ public class MovePlayer : MonoBehaviour
 
         transform.position = pos;   // update the position of the player
     }
-
-    /** Detects collisions with other objects
-     */
-    void OnTriggerEnter2D(Collider2D col)
-    {
-        // if player delivers to a customer, add to the player's score
-        if (col.gameObject.tag.Equals("Order"))
-        {
-            ScoreManager.instance.addPoints(playerNumber);
-        }
-    }
 }
