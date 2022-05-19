@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class FoodBin : MonoBehaviour
+public class Bin : MonoBehaviour
 {
     // Global variables
     public TextMeshProUGUI binText;
@@ -14,20 +14,22 @@ public class FoodBin : MonoBehaviour
      */
     void Start()
     {
-        
     }
 
     /** Update is called once per frame
      */
     void Update()
     {
-        
     }
 
     /** Detects collisions with other objects
      */
     void OnTriggerEnter2D(Collider2D other)
     {
-        
+        if (other.gameObject.tag == "Player")
+        {
+            var player = other.gameObject.GetComponent<PlayerController>();
+            player.addFood(binText.text);
+        }
     }
 }

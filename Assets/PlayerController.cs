@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class MovePlayer : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     // Global variables
     public TextMeshPro vegetableText;   // indicator for food picked up
@@ -12,7 +12,8 @@ public class MovePlayer : MonoBehaviour
     public float timeRemaining = 120f;  // total time remaining in game
     
     private int score = 0;
-    private string foodPicked = "";     // list of food picked up
+    private List<string> foods;         // list of food currently picked up
+    private string foodPicked = "";     // food currently picked up
     private bool choppingFood = false;  // true if at chopping board; false otherwise
     private string foodOnPlate = "";    // name of food placed on plate near board
     private float chopTimeLeft = 5f;    // total amount of time left to finish chopping items
@@ -23,7 +24,8 @@ public class MovePlayer : MonoBehaviour
      */
     void Start()
     {
-        vegetableText.text = "";
+        foods = new List<string>();
+        updatePlayerIndicator();
     }
 
     /** Update is called once per frame
@@ -51,5 +53,43 @@ public class MovePlayer : MonoBehaviour
         }
 
         transform.position = pos;   // update the position of the player
+    }
+
+    public void addFood(string item)
+    {
+        if (foods.Count == 0)
+        {
+            foods.Add(item);
+            foodPicked = item;
+        }
+        else if (foods.Count == 1)
+        {
+            foods.Add(item);
+            foodPicked += " ; " + item;
+        }
+
+        updatePlayerIndicator();
+    }
+
+    public List<string> getFoodList()
+    {
+        return foods;
+    }
+
+    public string getFood()
+    {
+        return foodPicked;
+    }
+
+    public void removeFood()
+    {
+        foods.Clear();
+        foodPicked = "";
+        updatePlayerIndicator();
+    }
+
+    private void updatePlayerIndicator()
+    {
+        vegetableText.text = foodPicked;
     }
 }
