@@ -7,6 +7,7 @@ public class ChoppingBoard : MonoBehaviour
 {
     // Global variables
     public TextMeshPro itemsText;   // indicator for items on chopping board
+    public int boardNumber;
 
     private List<string> itemsList; // list of items on chopping board
     private string items;           // items on chopping board
@@ -29,6 +30,8 @@ public class ChoppingBoard : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             var player = other.gameObject.GetComponent<PlayerController>();
+            if (player.playerNumber != boardNumber)
+                return;
             List<string> foodList = player.getFoodList();
 
             if (itemsList.Count == 0 && foodList.Count > 0)
