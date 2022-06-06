@@ -11,16 +11,12 @@ public class Plate : MonoBehaviour
 
     private string item;
 
+
     // Start is called before the first frame update
     void Start()
     {
         item = "";
         updatePlateIndicator();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -30,12 +26,17 @@ public class Plate : MonoBehaviour
             var player = other.gameObject.GetComponent<PlayerController>();
             if (player.playerNumber != plateNumber)
                 return;
-            List<string> foodList = player.getFoodList();
+            List<string> playerFoodList = player.getFoodList();
 
-            if (foodList.Count == 1 && item == "")
+            if (playerFoodList.Count == 1 && item == "")        // drop off player's food onto plate
             {
                 item = player.getFood();
                 player.removeFood();
+            }
+            else if (playerFoodList.Count == 0 && item != "")   // pick up food from plate
+            {
+                player.addFood(item);
+                item = "";
             }
 
             updatePlateIndicator();

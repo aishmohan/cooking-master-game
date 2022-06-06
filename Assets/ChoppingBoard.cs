@@ -20,11 +20,6 @@ public class ChoppingBoard : MonoBehaviour
         updateBoardIndicator();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Player")
@@ -32,19 +27,25 @@ public class ChoppingBoard : MonoBehaviour
             var player = other.gameObject.GetComponent<PlayerController>();
             if (player.playerNumber != boardNumber)
                 return;
-            List<string> foodList = player.getFoodList();
+            List<string> playerFoodList = player.getFoodList();
 
-            if (itemsList.Count == 0 && foodList.Count > 0)
+            if (itemsList.Count == 0 && playerFoodList.Count > 0)       // drop off food from player onto empty chopping board
             {
-                itemsList.Add(foodList[0]);
+                itemsList.Add(playerFoodList[0]);
                 items = player.getFood();
                 player.removeFood();
             }
-            else if (itemsList.Count < 3 && foodList.Count > 0)
+            else if (itemsList.Count < 3 && playerFoodList.Count > 0)   // drop off food from player onto partially filled chopping board
             {
-                itemsList.Add(foodList[0]);
+                itemsList.Add(playerFoodList[0]);
                 items += player.getFood();
                 player.removeFood();
+            } 
+            else if (itemsList.Count > 0 && playerFoodList.Count == 0)  // pick up food from chopping board
+            {
+                player.addFood(itemsList[0]);
+                itemsList.RemoveAt(0);
+                items = "";
             }
 
             updateBoardIndicator();

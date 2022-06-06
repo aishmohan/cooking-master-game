@@ -10,18 +10,6 @@ public class Bin : MonoBehaviour
     public float timeToChop = 5f;   // amount of time needed to chop this food
 
 
-    /** Start is called before the first frame update
-     */
-    void Start()
-    {
-    }
-
-    /** Update is called once per frame
-     */
-    void Update()
-    {
-    }
-
     /** Detects collisions with other objects
      */
     void OnTriggerEnter2D(Collider2D other)

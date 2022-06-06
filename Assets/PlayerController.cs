@@ -15,7 +15,6 @@ public class PlayerController : MonoBehaviour
     private List<string> foods;         // list of food currently picked up
     private string foodPicked = "";     // food currently picked up
     private bool choppingFood = false;  // true if at chopping board; false otherwise
-    private string foodOnPlate = "";    // name of food placed on plate near board
     private float chopTimeLeft = 5f;    // total amount of time left to finish chopping items
 
 
