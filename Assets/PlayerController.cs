@@ -13,7 +13,6 @@ public class PlayerController : MonoBehaviour
     
     private int score = 0;
     private List<string> foods;         // list of food currently picked up
-    private string foodPicked = "";     // food currently picked up
     private bool choppingFood = false;  // true if at chopping board; false otherwise
     private float chopTimeLeft = 5f;    // total amount of time left to finish chopping items
 
@@ -56,39 +55,48 @@ public class PlayerController : MonoBehaviour
 
     public void addFood(string item)
     {
-        if (foods.Count == 0)
+        if (foods.Count < 2)
         {
             foods.Add(item);
-            foodPicked = item;
-        }
-        else if (foods.Count == 1)
-        {
-            foods.Add(item);
-            foodPicked += " ; " + item;
         }
 
         updatePlayerIndicator();
     }
 
-    public List<string> getFoodList()
+    public void addAllFood(List<string> allFood)
+    {
+        foods.AddRange(allFood);
+        updatePlayerIndicator();
+    }
+
+    public List<string> getFood()
     {
         return foods;
     }
 
-    public string getFood()
-    {
-        return foodPicked;
-    }
-
     public void removeFood()
     {
+        foods.RemoveAt(0);
+        updatePlayerIndicator();
+    }
+
+    public void removeAllFood()
+    {
         foods.Clear();
-        foodPicked = "";
         updatePlayerIndicator();
     }
 
     private void updatePlayerIndicator()
     {
-        vegetableText.text = foodPicked;
+        string foodPickedUp = "";
+        for (int index = 0; index < foods.Count; index++)
+        {
+            foodPickedUp += foods[index];   // add all the food the player is carrying
+
+            if (index != foods.Count - 1)
+                foodPickedUp += " ; ";
+        }
+
+        vegetableText.text = foodPickedUp;  // update the display text for the indicator
     }
 }

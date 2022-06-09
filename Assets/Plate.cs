@@ -26,11 +26,11 @@ public class Plate : MonoBehaviour
             var player = other.gameObject.GetComponent<PlayerController>();
             if (player.playerNumber != plateNumber)
                 return;
-            List<string> playerFoodList = player.getFoodList();
+            List<string> playerFoodList = player.getFood();
 
-            if (playerFoodList.Count == 1 && item == "")        // drop off player's food onto plate
+            if (playerFoodList.Count == 1 && item == "")        // drop off a food from player onto plate
             {
-                item = player.getFood();
+                item = player.getFood()[0];
                 player.removeFood();
             }
             else if (playerFoodList.Count == 0 && item != "")   // pick up food from plate
