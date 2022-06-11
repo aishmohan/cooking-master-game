@@ -31,26 +31,43 @@ public class PlayerController : MonoBehaviour
      */
     void Update()
     {
-        Vector3 pos = transform.position; // get the position of the player
+        if (choppingFood && chopTimeLeft > 0)       // prevent player from moving when chopping and count down time
+        {
+            chopTimeLeft -= Time.deltaTime;
+        }
+        else if (choppingFood && chopTimeLeft <= 0) // allow player to start moving again once finished chopping
+        {
+            choppingFood = false;
+            chopTimeLeft = 5f;
+        }
+        else if (!choppingFood)                     // move the player accoding to input
+        {
+            Vector3 pos = transform.position; // get the position of the player
 
-        if ((Input.GetKey("w") && playerNumber == 1) || (Input.GetKey(KeyCode.UpArrow) && playerNumber == 2))
-        {
-            pos.y += speed * Time.deltaTime;
-        }
-        if ((Input.GetKey("s") && playerNumber == 1) || (Input.GetKey(KeyCode.DownArrow) && playerNumber == 2))
-        {
-            pos.y -= speed * Time.deltaTime;
-        }
-        if ((Input.GetKey("d") && playerNumber == 1) || (Input.GetKey(KeyCode.RightArrow) && playerNumber == 2))
-        {
-            pos.x += speed * Time.deltaTime;
-        }
-        if ((Input.GetKey("a") && playerNumber == 1) || (Input.GetKey(KeyCode.LeftArrow) && playerNumber == 2))
-        {
-            pos.x -= speed * Time.deltaTime;
-        }
+            if ((Input.GetKey("w") && playerNumber == 1) || (Input.GetKey(KeyCode.UpArrow) && playerNumber == 2))
+            {
+                pos.y += speed * Time.deltaTime;
+            }
+            if ((Input.GetKey("s") && playerNumber == 1) || (Input.GetKey(KeyCode.DownArrow) && playerNumber == 2))
+            {
+                pos.y -= speed * Time.deltaTime;
+            }
+            if ((Input.GetKey("d") && playerNumber == 1) || (Input.GetKey(KeyCode.RightArrow) && playerNumber == 2))
+            {
+                pos.x += speed * Time.deltaTime;
+            }
+            if ((Input.GetKey("a") && playerNumber == 1) || (Input.GetKey(KeyCode.LeftArrow) && playerNumber == 2))
+            {
+                pos.x -= speed * Time.deltaTime;
+            }
 
-        transform.position = pos;   // update the position of the player
+            transform.position = pos;   // update the position of the player
+        }
+    }
+
+    public void startChopping()
+    {
+        choppingFood = true;
     }
 
     public void addFood(string item)

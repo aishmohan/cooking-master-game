@@ -32,11 +32,13 @@ public class ChoppingBoard : MonoBehaviour
             {
                 itemsList.Add(playerFoodList[0]);
                 player.removeFood();
+                player.startChopping();
             }
             else if (itemsList.Count < 3 && playerFoodList.Count > 0)   // drop off a food from player onto partially filled chopping board
             {
                 itemsList.Add(playerFoodList[0]);
                 player.removeFood();
+                player.startChopping();
             } 
             else if (itemsList.Count > 0 && playerFoodList.Count == 0)  // pick up food from chopping board
             {
