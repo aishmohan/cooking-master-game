@@ -25,13 +25,6 @@ public class ScoreManager : MonoBehaviour
         instance = this;
     }
 
-    /** Start is called before the first frame update
-     */
-    void Start()
-    {
-        
-    }
-
     /** Adds points to a player's score
      *  @param playerNumber the number of the player to add points to
      */
@@ -39,13 +32,27 @@ public class ScoreManager : MonoBehaviour
     {
         if (playerNumber == 1)
         {
-            score1 += 10;
+            score1 += 100;
         }
         else if (playerNumber == 2)
         {
-            score2 += 10;
+            score2 += 100;
         }
         
+        displayScores();
+    }
+
+    public void deductPoints(int playerNumber)
+    {
+        if (playerNumber == 1)
+        {
+            score1 -= 10;
+        }
+        else if (playerNumber == 2)
+        {
+            score2 -= 10;
+        }
+
         displayScores();
     }
 
