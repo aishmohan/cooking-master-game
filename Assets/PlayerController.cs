@@ -6,15 +6,21 @@ using TMPro;
 public class PlayerController : MonoBehaviour
 {
     // Global variables
+    
+    // Public variables
     public TextMeshPro vegetableText;   // indicator for food picked up
     public int playerNumber = 1;
     public float speed = 6.0f;
     public float timeRemaining = 120f;  // total time remaining in game
     
+    // Private variables
     private int score = 0;
     private List<string> foods;         // list of food currently picked up
     private bool choppingFood = false;  // true if at chopping board; false otherwise
     private float chopTimeLeft = 5f;    // total amount of time left to finish chopping items
+    private bool speeding = false;
+    private float speedTimeLeft = 15f;  // amount of time remaining for speed pickup
+
 
 
     /** Start is called before the first frame update
@@ -31,6 +37,17 @@ public class PlayerController : MonoBehaviour
      */
     void Update()
     {
+        if (speeding && speedTimeLeft > 0)          // if speed pickup is active, count down the amount of time left for speed pickup
+        {
+            speedTimeLeft -= Time.deltaTime;
+        }
+        else if (speeding && speedTimeLeft <= 0)    // if speed pickup has run out, reset the speed
+        {
+            speedTimeLeft = 15f;
+            speed = 6f;
+            speeding = false;
+        }
+
         if (choppingFood && chopTimeLeft > 0)       // prevent player from moving when chopping and count down time
         {
             chopTimeLeft -= Time.deltaTime;
@@ -101,6 +118,12 @@ public class PlayerController : MonoBehaviour
     {
         foods.Clear();
         updatePlayerIndicator();
+    }
+
+    public void speedUpPlayer()
+    {
+        speed *= 2;
+        speeding = true;
     }
 
     private void updatePlayerIndicator()

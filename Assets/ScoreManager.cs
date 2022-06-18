@@ -25,18 +25,47 @@ public class ScoreManager : MonoBehaviour
         instance = this;
     }
 
-    /** Adds points to a player's score
-     *  @param playerNumber the number of the player to add points to
+    /** Update is called once per frame
+     *  Reduces the time left and updates the time displays
      */
-    public void addPoints(int playerNumber)
+    void Update()
+    {
+        if (time1 > 0)
+        {
+            time1 -= Time.deltaTime;
+        }
+        if (time2 > 0)
+        {
+            time2 -= Time.deltaTime;
+        }
+
+        displayTimes();
+    }
+
+    public void addTime(int playerNumber)
     {
         if (playerNumber == 1)
         {
-            score1 += 100;
+            time1 += 20;
         }
         else if (playerNumber == 2)
         {
-            score2 += 100;
+            time2 += 20;
+        }
+    }
+
+    /** Adds points to a player's score
+     *  @param playerNumber the number of the player to add points to
+     */
+    public void addPoints(int playerNumber, bool isBonus)
+    {
+        if (playerNumber == 1)
+        {
+            score1 += (isBonus ? 20 : 100);
+        }
+        else if (playerNumber == 2)
+        {
+            score2 += (isBonus ? 20 : 100);
         }
         
         displayScores();
@@ -55,24 +84,7 @@ public class ScoreManager : MonoBehaviour
 
         displayScores();
     }
-
-    /** Update is called once per frame
-     *  Reduces the time left and updates the time displays
-     */
-    void Update()
-    {
-        if (time1 > 0)
-        {
-            time1 -= Time.deltaTime;
-        }
-        if (time2 > 0)
-        {
-            time2 -= Time.deltaTime;
-        }
-
-        displayTimes();
-    }
-
+    
     /** Updates the score displayed for both players
      */
     private void displayScores()
