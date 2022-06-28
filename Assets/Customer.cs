@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class Customer : MonoBehaviour
 {
     // Global variables
     public TextMeshPro orderText;
+    public Slider timerSlider;
 
     private List<string> order;
     private float timeRemaining; 
@@ -20,7 +22,16 @@ public class Customer : MonoBehaviour
         timeRemaining = 20f * order.Count;
         isAngry = false;
 
+        timerSlider.maxValue = timeRemaining;
+        timerSlider.value = timeRemaining;
         updateOrderIndicator();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        timeRemaining -= Time.deltaTime;
+        timerSlider.value = timeRemaining;
     }
 
     private List<string> generateOrder()
