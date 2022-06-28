@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Customer : MonoBehaviour
 {
     // Global variables
-    public List<string> order;
+    public TextMeshPro orderText;
 
+    private List<string> order;
     private float timeRemaining; 
     private bool isAngry;
 
@@ -17,11 +19,8 @@ public class Customer : MonoBehaviour
         order = generateOrder();
         timeRemaining = 20f * order.Count;
         isAngry = false;
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
+        updateOrderIndicator();
     }
 
     private List<string> generateOrder()
@@ -42,5 +41,19 @@ public class Customer : MonoBehaviour
         }
 
         return newOrder;
+    }
+
+    private void updateOrderIndicator()
+    {
+        string orderStr = "";
+        for (int index = 0; index < order.Count; index++)
+        {
+            orderStr += order[index];
+
+            if (index != order.Count - 1)
+                orderStr += ",";
+        }
+
+        orderText.text = orderStr;
     }
 }
