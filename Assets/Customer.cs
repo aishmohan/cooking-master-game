@@ -19,7 +19,7 @@ public class Customer : MonoBehaviour
     void Start()
     {
         order = generateOrder();
-        timeRemaining = 20f * order.Count;
+        timeRemaining = 30f * order.Count;
         isAngry = false;
 
         timerSlider.maxValue = timeRemaining;
@@ -66,5 +66,30 @@ public class Customer : MonoBehaviour
         }
 
         orderText.text = orderStr;
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            var player = other.gameObject.GetComponent<PlayerController>();
+            List<string> playerFoodList = player.getFood();
+            bool comboMatches = true;
+
+            if (playerFoodList.Count != order.Count)        // combination does not match order
+                comboMatches = false;
+
+            for (int index = 0; index < playerFoodList.Count; index++)
+            {
+                if (playerFoodList[index] != order[index])
+                    comboMatches = false;
+            }
+
+            if (comboMatches)                               // combination matches order
+            {
+                Destroy(gameObject);
+                player.removeAllFood();
+            }
+        }
     }
 }

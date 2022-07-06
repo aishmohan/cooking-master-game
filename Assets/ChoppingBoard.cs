@@ -58,7 +58,7 @@ public class ChoppingBoard : MonoBehaviour
             foodOnBoard += itemsList[index];   // add all the food the board has
 
             if (index != itemsList.Count - 1)
-                foodOnBoard += " ; ";
+                foodOnBoard += ",";
         }
 
         itemsText.text = foodOnBoard;

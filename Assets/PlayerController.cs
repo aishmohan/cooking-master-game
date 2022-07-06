@@ -134,7 +134,7 @@ public class PlayerController : MonoBehaviour
             foodPickedUp += foods[index];   // add all the food the player is carrying
 
             if (index != foods.Count - 1)
-                foodPickedUp += " ; ";
+                foodPickedUp += ",";
         }
 
         vegetableText.text = foodPickedUp;  // update the display text for the indicator
