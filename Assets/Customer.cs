@@ -88,6 +88,7 @@ public class Customer : MonoBehaviour
             if (comboMatches)                               // combination matches order
             {
                 Destroy(gameObject);
+                ScoreManager.instance.addPoints(player.playerNumber, false);
                 player.removeAllFood();
             }
         }
