@@ -71,15 +71,15 @@ public class ScoreManager : MonoBehaviour
         displayScores();
     }
 
-    public void deductPoints(int playerNumber)
+    public void deductPoints(int playerNumber, bool isTrashed)
     {
         if (playerNumber == 1)
         {
-            score1 -= 10;
+            score1 -= (isTrashed ? 10 : 100);
         }
         else if (playerNumber == 2)
         {
-            score2 -= 10;
+            score2 -= (isTrashed ? 10 : 100);
         }
 
         displayScores();

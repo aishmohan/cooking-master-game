@@ -13,7 +13,7 @@ public class TrashCan : MonoBehaviour
             if (player.getFood().Count > 0)
             {
                 player.removeAllFood();
-                ScoreManager.instance.deductPoints(player.playerNumber);
+                ScoreManager.instance.deductPoints(player.playerNumber, true);
             }
         }
     }

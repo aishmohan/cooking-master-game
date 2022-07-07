@@ -32,6 +32,13 @@ public class Customer : MonoBehaviour
     {
         timeRemaining -= Time.deltaTime;
         timerSlider.value = timeRemaining;
+
+        if (timeRemaining <= 0)
+        {
+            Destroy(gameObject);
+            ScoreManager.instance.deductPoints(1, false);
+            ScoreManager.instance.deductPoints(2, false);
+        }
     }
 
     private List<string> generateOrder()
