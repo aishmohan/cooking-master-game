@@ -30,7 +30,7 @@ public class Customer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timeRemaining -= Time.deltaTime;
+        timeRemaining -= (isAngry ? Time.deltaTime * 1.7f : Time.deltaTime);
         timerSlider.value = timeRemaining;
 
         if (timeRemaining <= 0)
@@ -83,19 +83,32 @@ public class Customer : MonoBehaviour
             List<string> playerFoodList = player.getFood();
             bool comboMatches = true;
 
-            if (playerFoodList.Count != order.Count)        // combination does not match order
+            if (playerFoodList.Count != order.Count)        // check if combination matches order  
                 comboMatches = false;
-
-            for (int index = 0; index < playerFoodList.Count; index++)
+            else
             {
-                if (playerFoodList[index] != order[index])
-                    comboMatches = false;
+                for (int index = 0; index < playerFoodList.Count; index++)
+                {
+                    if (playerFoodList[index] != order[index])
+                        comboMatches = false;
+                }
             }
 
-            if (comboMatches)                               // combination matches order
+            if (comboMatches)                               // combination does match order
             {
                 Destroy(gameObject);
                 ScoreManager.instance.addPoints(player.playerNumber, false);
+                player.removeAllFood();
+            }
+            else                                            // combination does not match order
+            {
+                isAngry = true;
+                GameObject body = GameObject.Find(gameObject.name + "/Face");
+                body.GetComponent<SpriteRenderer>().color = new Color (0.5f, 0, 0);
+                body = GameObject.Find(gameObject.name + "/Body");
+                body.GetComponent<SpriteRenderer>().color = new Color (0.5f, 0, 0);
+                body = GameObject.Find(gameObject.name + "/Canvas/Slider/Fill Area/Fill");
+                body.GetComponent<Image>().color = new Color (0.5f, 0, 0);
                 player.removeAllFood();
             }
         }
