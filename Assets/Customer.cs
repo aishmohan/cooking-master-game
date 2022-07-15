@@ -13,7 +13,7 @@ public class Customer : MonoBehaviour
     private List<string> order;
     private float timeRemaining; 
     private bool isAngry;
-
+    private List<int> wrongMeals;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +21,7 @@ public class Customer : MonoBehaviour
         order = generateOrder();
         timeRemaining = 30f * order.Count;
         isAngry = false;
+        wrongMeals = new List<int>();
 
         timerSlider.maxValue = timeRemaining;
         timerSlider.value = timeRemaining;
@@ -36,8 +37,26 @@ public class Customer : MonoBehaviour
         if (timeRemaining <= 0)
         {
             Destroy(gameObject);
-            ScoreManager.instance.deductPoints(1, false);
-            ScoreManager.instance.deductPoints(2, false);
+
+            if (!isAngry)   // customer left not angry
+            {
+                ScoreManager.instance.deductPoints(1, false);
+                ScoreManager.instance.deductPoints(2, false);
+            }
+            else            // customer left angry
+            {
+                if (wrongMeals.Contains(1))
+                {
+                    ScoreManager.instance.deductPoints(1, false);
+                    ScoreManager.instance.deductPoints(1, false);
+                }
+
+                if (wrongMeals.Contains(2))
+                {
+                    ScoreManager.instance.deductPoints(2, false);
+                    ScoreManager.instance.deductPoints(2, false);
+                }
+            }
         }
     }
 
@@ -103,12 +122,15 @@ public class Customer : MonoBehaviour
             else                                            // combination does not match order
             {
                 isAngry = true;
+
                 GameObject body = GameObject.Find(gameObject.name + "/Face");
                 body.GetComponent<SpriteRenderer>().color = new Color (0.5f, 0, 0);
                 body = GameObject.Find(gameObject.name + "/Body");
                 body.GetComponent<SpriteRenderer>().color = new Color (0.5f, 0, 0);
                 body = GameObject.Find(gameObject.name + "/Canvas/Slider/Fill Area/Fill");
                 body.GetComponent<Image>().color = new Color (0.5f, 0, 0);
+
+                wrongMeals.Add(player.playerNumber);
                 player.removeAllFood();
             }
         }
