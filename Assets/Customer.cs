@@ -9,6 +9,9 @@ public class Customer : MonoBehaviour
     // Global variables
     public TextMeshPro orderText;
     public Slider timerSlider;
+    public Transform pickupTimeObj;
+    public Transform pickupSpeedObj;
+    public Transform pickupScoreObj;
 
     private List<string> order;
     private float timeRemaining; 
@@ -65,7 +68,7 @@ public class Customer : MonoBehaviour
         List<string> newOrder = new List<string>();
         string[] choices = {"T", "C", "B", "S", "R", "O"};
 
-        for (int index = 0; index < Random.Range(1,3); index++)
+        for (int index = 0; index < Random.Range(1,4); index++)
         {
             int randChoice;
             do
@@ -116,6 +119,24 @@ public class Customer : MonoBehaviour
             if (comboMatches)                               // combination does match order
             {
                 Destroy(gameObject);
+
+                if (timeRemaining >= 0.7f * (30f * order.Count))    // spawn pickup
+                {
+                    int pickupType = Random.Range(1, 4);
+                    Transform pickupObj = null;
+
+                    if (pickupType == 1)
+                        pickupObj = pickupTimeObj;
+                    else if (pickupType == 2)
+                        pickupObj = pickupSpeedObj;
+                    else if (pickupType == 3)
+                        pickupObj = pickupScoreObj;
+
+                    Instantiate(pickupObj, new Vector3(Random.Range(-7.0f, 7.0f), Random.Range(0.5f, -2.5f), pickupObj.position.z), pickupObj.rotation);
+                    GameObject pickup = GameObject.Find(pickupObj.name + "(Clone)");
+                    pickup.name = pickupObj.name + "-" + player.playerNumber;
+                }
+
                 ScoreManager.instance.addPoints(player.playerNumber, false);
                 player.removeAllFood();
             }

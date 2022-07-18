@@ -284,6 +284,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orderText: {fileID: 1480939997516744122}
   timerSlider: {fileID: 6694533115742022260}
+  pickupTimeObj: {fileID: 6741010502716616827, guid: 251f06477467c3744a51b88990448b18, type: 3}
+  pickupSpeedObj: {fileID: 5646231295827370602, guid: f68d5b7bc15d94b4ea2878d3b0796e35, type: 3}
+  pickupScoreObj: {fileID: 5590792053780808193, guid: 44b74d357945b1441a93684472f22f6d, type: 3}
 --- !u!61 &8669657209744674524
 BoxCollider2D:
   m_ObjectHideFlags: 0

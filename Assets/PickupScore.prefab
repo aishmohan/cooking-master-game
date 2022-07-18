@@ -178,6 +178,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5590792053780808193}
   - component: {fileID: 8540366780710529090}
+  - component: {fileID: -6136290278342971669}
   m_Layer: 0
   m_Name: PickupScore
   m_TagString: Untagged
@@ -218,3 +219,15 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &-6136290278342971669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5590792053780808199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4f3b1a51d5fa64ab785283e0530a73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
