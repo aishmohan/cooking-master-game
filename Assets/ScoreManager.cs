@@ -30,13 +30,21 @@ public class ScoreManager : MonoBehaviour
      */
     void Update()
     {
-        if (time1 > 0)
+        if (time1 <= 0 && time2 <= 0)   // end the game
         {
-            time1 -= Time.deltaTime;
+            Time.timeScale = 0;
         }
-        if (time2 > 0)
+        else                            // continue the game
         {
-            time2 -= Time.deltaTime;
+            if (time1 > 0)
+            {
+                time1 -= Time.deltaTime;
+            }
+
+            if (time2 > 0)
+            {
+                time2 -= Time.deltaTime;
+            }
         }
 
         displayTimes();
