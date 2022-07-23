@@ -12,17 +12,23 @@ public class ScoreManager : MonoBehaviour
     public TextMeshProUGUI time2Text;
     public TextMeshProUGUI score1Text;
     public TextMeshProUGUI score2Text;
+    public TextMeshProUGUI winText;
+    public SpriteRenderer winSquare;
 
     private int score1 = 0;             // score for player one
     private int score2 = 0;
-    private float time1 = 120f;         // time left for player one
-    private float time2 = 120f;
+    private float time1 = 90f;         // time left for player one
+    private float time2 = 90f;
+
 
     /** Awake is called on awakening before Start
      */
     private void Awake()
     {
         instance = this;
+
+        winText.enabled = false;
+        winSquare.enabled = false;
     }
 
     /** Update is called once per frame
@@ -30,11 +36,15 @@ public class ScoreManager : MonoBehaviour
      */
     void Update()
     {
-        if (time1 <= 0 && time2 <= 0)   // end the game
+        if (time1 <= 0 && time2 <= 0)       // end the game
         {
             Time.timeScale = 0;
+
+            winText.text = "Player " + (score1 > score2 ? "one" : "two") + " wins!";
+            winText.enabled = true;
+            winSquare.enabled = true;
         }
-        else                            // continue the game
+        else                                // continue the game
         {
             if (time1 > 0)
             {
